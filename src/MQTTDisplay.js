@@ -25,9 +25,11 @@ function arrayRemove(arr, value) {
 function MQTTDisplay(props) {
   // ALLOW USER TO SUBSCRIBE TO MQTT TOPICS
 
+
   const [desiredSubscriptionTopic, setDesiredSubscriptionTopic] = useState("$aws/things/BEWP1-080027E90EDA/shadow/get/accepted");
   const [desiredPublishTopic,   setDesiredPublishTopic]   = useState("$aws/things/BEWP1-080027E90EDA/shadow/get/");
   const [desiredPublishMessage, setDesiredPublishMessage] = useState(`{ "message": "Hello" }`);
+
   const [subscribedTopics, setSubscribedTopics]           = useState([]);
   
   // isConnected and mqttClient strictly used for publishing;

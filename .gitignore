@@ -42,5 +42,10 @@ amplifytools.xcconfig
 .secret-*
 
 .eslintcache
+<<<<<<< HEAD
 debug.log
 .vscode/*
+=======
+.gitignore
+ .vscode/settings.json
+>>>>>>> c3b43a097be626ed73bb074deafe433fce303351
