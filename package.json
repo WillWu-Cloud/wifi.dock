@@ -10,8 +10,10 @@
     "aws-amplify": "^3.3.14",
     "aws-amplify-react": "^4.2.18",
     "aws-iot-device-sdk": "^2.2.6",
+    "circular-json": "^0.5.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-json-pretty": "^2.2.0",
     "react-json-tree": "^0.13.0",
     "react-player": "^2.7.2",
     "react-scripts": "4.0.1",
@@ -24,9 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

@@ -3,6 +3,8 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsmobile from './aws-exports';
 import AWSIoTData from 'aws-iot-device-sdk';
 import AWSConfiguration from './aws-iot-configuration.js';
+import Pretty from 'react-json-pretty';
+import JSONPrettyMon from 'react-json-pretty/dist/monikai';
 Amplify.configure(awsmobile);
 
 /*
@@ -25,12 +27,10 @@ function arrayRemove(arr, value) {
 function MQTTDisplay(props) {
   // ALLOW USER TO SUBSCRIBE TO MQTT TOPICS
 
-
   const [desiredSubscriptionTopic, setDesiredSubscriptionTopic] = useState("$aws/things/BEWP1-080027E90EDA/shadow/get/accepted");
-  const [desiredPublishTopic,   setDesiredPublishTopic]   = useState("$aws/things/BEWP1-080027E90EDA/shadow/get/");
+  const [desiredPublishTopic,   setDesiredPublishTopic]   = useState("$aws/things/BEWP1-080027E90EDA/shadow/get");
   const [desiredPublishMessage, setDesiredPublishMessage] = useState(`{ "message": "Hello" }`);
-
-  const [subscribedTopics, setSubscribedTopics]           = useState([]);
+  const [subscribedTopics, setSubscribedTopics] = useState([]);
   
   // isConnected and mqttClient strictly used for publishing;
   // Subscriptions are instead handled in child MQTTSubscription components
@@ -177,6 +177,7 @@ function MQTTSubscription(props) {
   const [isConnected, setIsConnected] = useState(false);
   const [mqttClient, setMqttClient]   = useState();
   const [messages, setMessages]       = useState([]);
+  var msgTitle = '';
 
   useEffect(() => {
 
@@ -225,12 +226,15 @@ function MQTTSubscription(props) {
     // add event handler for received messages
     newMqttClient.on('message', function(topic, payload) {
       var myDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
-      var newMessage =  `${myDate} - topic '${topic}' - \n ${payload.toString()}`;
-      setMessages(prevMessages => [...prevMessages, newMessage]);
+      // var newMessage =  `${myDate} - topic '${topic}' - \n ${payload.toString()}`;
+      console.log('msgTitle', msgTitle);
+      var newMessage =  `${payload.toString()}`;
+      setMessages(prevMessages => [newMessage, ...prevMessages ]);
       console.log(newMessage);
     });
 
-    // update state to track mqtt client
+    // update state to track mqtt clientw687888
+
     setMqttClient(newMqttClient);
 
   }
@@ -260,7 +264,12 @@ function MQTTSubscription(props) {
       {messages.map((message,index) => {
         return (
           <li key={index} className="markdown">
-            {message}
+            {
+              <>
+                {new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()}
+                <Pretty data={message} theme={JSONPrettyMon} /> 
+              </> 
+            }
           </li>
         );
       })}
