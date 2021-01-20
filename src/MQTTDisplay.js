@@ -226,9 +226,9 @@ function MQTTSubscription(props) {
     // add event handler for received messages
     newMqttClient.on('message', function(topic, payload) {
       var myDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
-      // var newMessage =  `${myDate} - topic '${topic}' - \n ${payload.toString()}`;
+      var newMessage =  `${myDate} - topic '${topic}'#${payload.toString()}`;
       console.log('msgTitle', msgTitle);
-      var newMessage =  `${payload.toString()}`;
+      // var newMessage =  `${payload.toString()}`;
       setMessages(prevMessages => [newMessage, ...prevMessages ]);
       console.log(newMessage);
     });
@@ -266,8 +266,8 @@ function MQTTSubscription(props) {
           <li key={index} className="markdown">
             {
               <>
-                {new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()}
-                <Pretty data={message} theme={JSONPrettyMon} /> 
+                {message.split('#')[0]}
+                <Pretty data={message.split('#')[1]} theme={JSONPrettyMon} /> 
               </> 
             }
           </li>
