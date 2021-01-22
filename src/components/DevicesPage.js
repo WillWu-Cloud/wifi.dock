@@ -102,6 +102,7 @@ function DevicesPage(props) {
                       controls
                       playing
                       height="50px"
+                      volume={0.25}
                       onPause={() => toggleDevice(idx)}
                     />
                   </div>
