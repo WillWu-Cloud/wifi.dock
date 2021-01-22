@@ -5,29 +5,42 @@ import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 import Bootstrap from "./theme";
 import config from "./aws-exports";
+import { 
+  BrowserRouter as Router, 
+  Route, 
+  Switch, 
+  Redirect, 
+  useHistory }
+  from 'react-router-dom';
 
-import MQTTDisplay from './MQTTDisplay';
+import Navbar from './components/Navbar';
+import Home from './components/Home'; 
+import MQTTDisplay from './components/MQTTDisplay';
 import DevicesPage from './components/DevicesPage';
+import Footer from './components/Footer';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+library.add(faEdit);
 
 Amplify.configure(config);
 
 function App(props) {
 
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-          AWS S3 
-          <AmplifySignOut />
-      </header>
-      <br/>
-      <DevicesPage {...props} />
-      <br/>
-      <header className="App-header">
-          AWS IOT 
-      </header>
-      <br/>
-      <MQTTDisplay {...props} />
+      <div>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" render={(props) => (<Home {...props} />)} />
+          <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
+          <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} />
+        </Switch>
+        <Footer />
+      </div>
     </div>
+  </Router>
+  
   );
 }
 

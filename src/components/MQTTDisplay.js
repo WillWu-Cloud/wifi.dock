@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Amplify, { Auth } from 'aws-amplify';
-import awsmobile from './aws-exports';
 import AWSIoTData from 'aws-iot-device-sdk';
-import AWSConfiguration from './aws-iot-configuration.js';
+import awsmobile from '../aws-exports';
+import AWSConfiguration from '../aws-iot-configuration.js';
 import Pretty from 'react-json-pretty';
 import JSONPrettyMon from 'react-json-pretty/dist/monikai';
+import AutosizeInput from 'react-input-autosize';
 Amplify.configure(awsmobile);
 
 /*
@@ -34,14 +35,16 @@ function MQTTDisplay(props) {
   
   // isConnected and mqttClient strictly used for publishing;
   // Subscriptions are instead handled in child MQTTSubscription components
-  const [isConnected, setIsConnected]   = useState(false);
+  const [isConnected, setIsConnected]   = useState(false);  
   const [mqttClient, setMqttClient]     = useState();
 
   useEffect(() => {
     
     connectToAwsIot();
-  
+    handleSubscriptionRequest(); 
+
   },[]);  // the empty [] ensures only run once
+
 
   async function connectToAwsIot() {
     // This connection/function is only for publishing messages;
@@ -79,7 +82,7 @@ function MQTTDisplay(props) {
     // On connect, update status
     newMqttClient.on('connect', function() {
       setIsConnected(true);
-      console.log('Publisher connected to AWS IoT.');
+      console.log('Publisher connected to AWS IoT.');  
     });
 
     // update state to track mqtt client
@@ -94,7 +97,9 @@ function MQTTDisplay(props) {
 
   function handleSubscriptionRequest(e) {
     // stop submit button from refreshing entire page
-    e.preventDefault();
+    if(e){
+      e.preventDefault();
+    }
 
     if (subscribedTopics.includes(desiredSubscriptionTopic)) {
       console.log(`You are already subscribed to topic '${desiredSubscriptionTopic}'!`);
@@ -107,9 +112,12 @@ function MQTTDisplay(props) {
 
   function handlePublishRequest(e) {
     // stop submit button from refreshing entire page
-    e.preventDefault();
-  
-    mqttClient.publish(desiredPublishTopic, desiredPublishMessage);
+    if(e) {
+      e.preventDefault();
+    }  
+    if(mqttClient){
+      mqttClient.publish(desiredPublishTopic, desiredPublishMessage);
+    }
   
   }
 
@@ -121,7 +129,7 @@ function MQTTDisplay(props) {
           <form onSubmit={handlePublishRequest}>
           <b>Publish to Topic:</b>
             <br/>
-            <input
+            <AutosizeInput
               value={desiredPublishTopic}
               onChange={e => setDesiredPublishTopic(e.target.value)}
               placeholder="IoT Topic"
@@ -132,7 +140,7 @@ function MQTTDisplay(props) {
             <br/><br/>
             <b>Publish Message:</b>
             <br/>
-            <input
+            <AutosizeInput
               value={desiredPublishMessage}
               onChange={e => setDesiredPublishMessage(e.target.value)}
               placeholder="IoT Topic"
@@ -150,7 +158,7 @@ function MQTTDisplay(props) {
           <form onSubmit={handleSubscriptionRequest}>
             <b>Subscribe to Topic:</b>
             <br/>
-            <input
+            <AutosizeInput
               value={desiredSubscriptionTopic}
               onChange={e => setDesiredSubscriptionTopic(e.target.value)}
               placeholder="IoT Topic"
@@ -220,7 +228,11 @@ function MQTTSubscription(props) {
       newMqttClient.subscribe(props.topic);
       console.log('Connected to AWS IoT!');
       console.log(`Subscribed to ${props.topic}`);
-    
+
+      if(props.topic.includes("BEWP1-080027E90EDA")){
+        newMqttClient.publish('$aws/things/BEWP1-080027E90EDA/shadow/get', '{}');
+      }
+
     });
 
     // add event handler for received messages
@@ -236,7 +248,6 @@ function MQTTSubscription(props) {
     // update state to track mqtt clientw687888
 
     setMqttClient(newMqttClient);
-
   }
 
   function handleUnsubscribe(e) {

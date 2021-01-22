@@ -1,6 +1,4 @@
 import { Paper, IconButton, TextField } from '@material-ui/core';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { listDevices } from '../graphql/queries'
@@ -10,7 +8,9 @@ import ReactPlayer from 'react-player';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddIcon from '@material-ui/icons/Add';
 import PublishIcon from '@material-ui/icons/Publish';
-
+import CloseIcon from '@material-ui/icons/Close';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import { v4 as uuid } from 'uuid';
 
 function DevicesPage(props) {
@@ -109,16 +109,19 @@ function DevicesPage(props) {
             </Paper>;  
           })}
           {
+           
             showAddSong ? (
+              <div className='UploadFile'>
               <AddSong onUpload={() => {
                 setShowAddSong(false)
                 fetchDevices()
-              }} />
+              }} closeUpload={() => setShowAddSong(false)} />
+               </div>
             ) : (
                   <IconButton onClick={() => setShowAddSong(true)}> 
-                    <AddIcon />
+                    <AddIcon /> 
                   </IconButton>
-            )  
+            )    
           }
         </div>
 
@@ -127,7 +130,7 @@ function DevicesPage(props) {
 
 export default DevicesPage;
 
-const AddSong = ({onUpload}) => {
+const AddSong = ({onUpload, closeUpload}) => {
 
   const [songData, setSongData] = useState({});
   const [mp3Data, setMp3Data] = useState()
@@ -168,6 +171,9 @@ const AddSong = ({onUpload}) => {
       <input type="file" accept="audio/mp3" onChange={e => setMp3Data(e.target.files[0])} /> 
       <IconButton onClick={uploadSong}>
         <PublishIcon />
+      </IconButton>
+      < IconButton onClick={closeUpload}>
+        <CloseIcon />
       </IconButton>
     </div>
   )
