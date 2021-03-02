@@ -13,6 +13,7 @@ import {
   useHistory }
   from 'react-router-dom';
 
+import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
 import Navbar from './components/Navbar';
 import Home from './components/Home'; 
 import MQTTDisplay from './components/MQTTDisplay';
@@ -27,20 +28,21 @@ Amplify.configure(config);
 function App(props) {
 
   return (
+    <AwsIoTDeviceProvider>
     <Router>
     <div className="App">
       <div>
         <Navbar />
         <Switch>
           <Route exact path="/" render={(props) => (<Home {...props} />)} />
-          <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
-          <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} />
+          {/* <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
+          <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} /> */}
         </Switch>
         <Footer />
       </div>
     </div>
   </Router>
-  
+  </AwsIoTDeviceProvider>
   );
 }
 

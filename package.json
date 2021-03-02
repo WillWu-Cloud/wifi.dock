@@ -17,6 +17,7 @@
     "bulma": "^0.9.1",
     "circular-json": "^0.5.9",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-input-autosize": "^3.0.0",

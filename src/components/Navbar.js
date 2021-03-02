@@ -14,6 +14,7 @@ export default class Navbar extends Component {
   }
   render() {
     return (
+      <div className="card is-shady">
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
@@ -26,24 +27,21 @@ export default class Navbar extends Component {
             <Link to="/" className="navbar-item">
               Dashboard
             </Link>
-            <Link to="/iot" className="navbar-item">
+            {/* <Link to="/iot" className="navbar-item">
               AWS IoT
-            </Link>
-            <Link to="/s3" className="navbar-item">
+            </Link> */}
+            {/* <Link to="/S3" className="navbar-item">
               AWS S3
-            </Link>
+            </Link> */}
           </div>
-
           <div className="navbar-end">
             <div className="navbar-item">
               <AmplifySignOut />
             </div>
-          </div>
-          
+          </div>     
         </div>
-
-
       </nav>
+      </div>
     )
   }
 }

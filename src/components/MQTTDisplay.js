@@ -53,17 +53,17 @@ function MQTTDisplay(props) {
     // mqtt clients require a unique clientId; we generate one below
     var clientId = 'mqtt-explorer-' + (Math.floor((Math.random() * 100000) + 1));
 
-    console.log(`clientId: ${clientId}`)
+    // console.log(`clientId: ${clientId}`)
 
     // get credentials and, from them, extract key, secret key, and session token
     // Amplify's auth functionality makes this easy for us...
     var currentCredentials = await Auth.currentCredentials();
     var essentialCredentials = Auth.essentialCredentials(currentCredentials);
 
-    console.log(`clientId: ${clientId}`)
-    console.log(`currentCredentials: ${currentCredentials}`)
-    console.log(`essentialCredentials: ${essentialCredentials}`)
-    console.log(`AWSConfiguration.host: ${AWSConfiguration.host}`)
+    // console.log(`clientId: ${clientId}`)
+    // console.log(`currentCredentials: ${currentCredentials}`)
+    // console.log(`essentialCredentials: ${essentialCredentials}`)
+    // console.log(`AWSConfiguration.host: ${AWSConfiguration.host}`)
     
 
     // Create an MQTT client
@@ -82,7 +82,7 @@ function MQTTDisplay(props) {
     // On connect, update status
     newMqttClient.on('connect', function() {
       setIsConnected(true);
-      console.log('Publisher connected to AWS IoT.');  
+      // console.log('Publisher connected to AWS IoT.');  
     });
 
     // update state to track mqtt client
@@ -102,11 +102,11 @@ function MQTTDisplay(props) {
     }
 
     if (subscribedTopics.includes(desiredSubscriptionTopic)) {
-      console.log(`You are already subscribed to topic '${desiredSubscriptionTopic}'!`);
+      // console.log(`You are already subscribed to topic '${desiredSubscriptionTopic}'!`);
     }
     else {
       setSubscribedTopics(prevTopics => [...prevTopics, desiredSubscriptionTopic]);
-      console.log(`Subscribed to topic '${desiredSubscriptionTopic}'!`);
+      // console.log(`Subscribed to topic '${desiredSubscriptionTopic}'!`);
     }
   }
 
@@ -194,7 +194,7 @@ function MQTTSubscription(props) {
     return () => {
       // this gets called when component is destroyed...
       //https://github.com/mqttjs/MQTT.js/blob/master/README.md#end    
-      console.log(`Ended subscription to '${props.topic}'...`);
+      // console.log(`Ended subscription to '${props.topic}'...`);
     };
 
   },[]); // the "[]" causes this to execute just once
@@ -226,8 +226,8 @@ function MQTTSubscription(props) {
     newMqttClient.on('connect', function() {
       setIsConnected(true);
       newMqttClient.subscribe(props.topic);
-      console.log('Connected to AWS IoT!');
-      console.log(`Subscribed to ${props.topic}`);
+      // console.log('Connected to AWS IoT!');
+      // console.log(`Subscribed to ${props.topic}`);
 
       if(props.topic.includes("BEWP1-080027E90EDA")){
         newMqttClient.publish('$aws/things/BEWP1-080027E90EDA/shadow/get', '{}');
@@ -239,13 +239,12 @@ function MQTTSubscription(props) {
     newMqttClient.on('message', function(topic, payload) {
       var myDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
       var newMessage =  `${myDate} - topic '${topic}'#${payload.toString()}`;
-      console.log('msgTitle', msgTitle);
+      // console.log('msgTitle', msgTitle);
       // var newMessage =  `${payload.toString()}`;
       setMessages(prevMessages => [newMessage, ...prevMessages ]);
-      console.log(newMessage);
     });
 
-    // update state to track mqtt clientw687888
+    // update state to track mqtt client
 
     setMqttClient(newMqttClient);
   }
