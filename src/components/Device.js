@@ -36,6 +36,8 @@ import Badge from "@material-ui/core/Badge";
 import WifiIcon from '@material-ui/icons/Wifi'
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 430,
@@ -99,7 +101,7 @@ function isJsonString( jsonString ) {
 export default function Device({ device }) {
   const [sub, setSub] = useState()
   const [pub, setPub] = useState()
-  const { msgs, loading, error } = useAwsIot(pub, sub) 
+  const { isAwsConnected, msgs, loading, error } = useAwsIot(pub, sub) 
   const [thing, setThing] = useState();
   const [connected, setConnected] = useState();
   const [fwver, setFwver] = useState();
@@ -108,34 +110,38 @@ export default function Device({ device }) {
   const [current, setCurrent] = useState();
   const [start_time, setStart_time] = useState();
   const [charge, setCharge] = useState();
-
   const [chargeBtn, setChargeBtn] = useState(false);
-
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   
   useEffect(() => {   
-    setSub(device.thingName);
-    setPub({ 
-      topic:'$aws/things/'+device.thingName+'/shadow/get',
-      message :'{}'
-    });
-    return () => { 
-      console.log('Ended...');
-    };
-  },[device]);
+    if( isAwsConnected &&
+        device.thing_name !== undefined) {
+
+      setSub(device.thing_name);
+      if( thing === undefined 
+          || thing != device.thing_name ){
+        setTimeout(() => {
+          console.log('[Device] setPub');
+          setPub({ 
+            topic:'$aws/things/'+device.thing_name+'/shadow/get',
+            message :'{}'
+          });
+        }, 1000);
+      }
+
+    }
+
+  },[device, isAwsConnected, thing]);
 
   useEffect(() => {
     if( msgs!=null && 
-        isJsonString(msgs.msg) ){
-
-      if( msgs.topic.includes(device.thingName)){
-
+        isJsonString(msgs.msg) 
+    ){
+      if( msgs.topic.includes(device.thing_name)){
         let msg = JSON.parse(msgs.msg);
-        // console.log('obj.state.desired.charge :' + device.thingName+' : '+obj.state.reported.charge);
         if( msg.state.reported != null){
 
           setThing(msg.state.reported.thing);
@@ -152,34 +158,37 @@ export default function Device({ device }) {
             setChargeBtn(false)
           }
           setCharge(msg.state.reported.charge);
-
         }
       }        
     }
-  }, [msgs, device, thing]);
+
+  }, [msgs, device]);
 
   const handleChargeBtn = () => {
     // console.log('handleChargeBtn click!');
-    if(chargeBtn){
-      setPub({ 
-        topic:'$aws/things/'+device.thingName+'/shadow/update',
-        message :'{"state":{"desired":{"charge":"end"}}}'
-      });
-    }else{
-      setPub({ 
-        topic:'$aws/things/'+device.thingName+'/shadow/update',
-        message :'{"state":{"desired":{"charge":"started"}}}'
-      });  
+    if(typeof device.thing_name != "undefined" ){
+      if( chargeBtn ){ 
+        setPub({ 
+          topic:'$aws/things/'+device.thing_name+'/shadow/update',
+          message :'{"state":{"desired":{"charge":"end"}}}'
+        });
+      }else{
+        setPub({ 
+          topic:'$aws/things/'+device.thing_name+'/shadow/update',
+          message :'{"state":{"desired":{"charge":"started"}}}'
+        });  
+      }
     }
   }
 
   const classes = useStyles();
   return (
-    
     <div className="column is-4">
-      <Card className={classes.root}>
-      {loading && <h1>Loading</h1>}
+      {loading && <LinearProgress />}
       {error && <h1>Error. Try Refreshing.</h1>}
+      {
+        
+        <Card className={classes.root}>
         <CardHeader
           avatar={  
             connected === 'true' ?   
@@ -196,11 +205,11 @@ export default function Device({ device }) {
           title={
             <div>
               <span>
-                Wifi Dock (Device Name)
+                  {device.name}
               </span>
             </div>
           }
-          subheader={thing}
+          subheader={device.thing_name}
           action={
             <div> 
             <IconButton aria-label="settings">
@@ -209,16 +218,16 @@ export default function Device({ device }) {
             </div>
           }
         />
+      {!loading &&
+      <>
       <Box paddingX={2}>
-        <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-          <Button onClick={handleChargeBtn}>             
-            <Chip
-              variant="outlined"
-              size="small"
-              label= { charge === 'started' ? "Started" : "Stop" }
-              color= { charge === 'started' ? "primary" : "default" }/>
-          </Button>
-        </ButtonGroup>
+        <Chip
+          variant="outlined"
+          size="small"
+          label= { charge === 'started' ? "Started" : "Stop" }
+          color= { charge === 'started' ? "primary" : "default" }
+          onClick={handleChargeBtn}
+          />
       </Box>
         <br/>  
         <Box paddingX={4}>
@@ -275,7 +284,10 @@ export default function Device({ device }) {
             <ListItemText primary={fwver} secondary="fwver" />
           </CardContent>
         </Collapse>
+       </> 
+       } 
        </Card>
+    }
     </div>
   )
 }

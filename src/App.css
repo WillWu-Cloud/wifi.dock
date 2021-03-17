@@ -31,7 +31,7 @@ h1 {
 .navbar-menu {
   flex-grow: 1 !important;
   flex-shrink: 0 !important;
-  box-shadow: none !important;
+  box-shadow: 1 !important;
   padding: 0 !important;
 }
 
@@ -67,8 +67,6 @@ body {
   display:block;  
   width:100%
 } */
-
-
 
 .MQTTDisplay {
   margin: 0 auto;
@@ -130,4 +128,18 @@ body {
   display: flex;
   justify-content: center;
   padding: 5px;
+}
+
+.bar{
+  margin:0 auto;
+  width:575px;
+  border-radius:10px;
+  border:1px solid #dcdcdc;
+}
+.bar:hover{
+  box-shadow: 1px 1px 8px 1px #dcdcdc;
+}
+.bar:focus-within{
+  box-shadow: 1px 1px 8px 1px #dcdcdc;
+  outline:none;
 }

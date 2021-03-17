@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Amplify, { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import AWSIoTData from 'aws-iot-device-sdk';
-import awsmobile from '../aws-exports';
 import AWSConfiguration from '../aws-iot-configuration.js';
 
 const AwsIoTDeviceContext = React.createContext()
@@ -10,7 +9,6 @@ export function useAwsIotDevice() {
     return useContext(AwsIoTDeviceContext)
 }
 
-
 export function AwsIoTDeviceProvider({ children }) {
     const [device, setDevice]   = useState();
     const [isDeviceConnected, setIsDeviceConnected] = useState(false);
@@ -18,10 +16,10 @@ export function AwsIoTDeviceProvider({ children }) {
   
     useEffect(() => {
       connectToAwsIot()
- 
+      // console.log('connectToAwsIot()');
       return () => { 
         setIsDeviceConnected(false);
-        console.log('Ended AwsIoTDeviceProvider');
+        // console.log('Ended AwsIoTDeviceProvider');
       };
     }, [])
   
@@ -47,8 +45,7 @@ export function AwsIoTDeviceProvider({ children }) {
       // console.log(`currentCredentials: ${currentCredentials}`)
       // console.log(`essentialCredentials: ${essentialCredentials}`)
       // console.log(`AWSConfiguration.host: ${AWSConfiguration.host}`)
-      
-  
+ 
       // Create an MQTT client
       var device = AWSIoTData.device({
         region: AWSConfiguration.region,
@@ -56,7 +53,7 @@ export function AwsIoTDeviceProvider({ children }) {
         clientId: clientId,
         protocol: 'wss',
         maximumReconnectTimeMs: 8000,
-        debug: true,
+        debug: false,
         accessKeyId:  essentialCredentials.accessKeyId,
         secretKey:    essentialCredentials.secretAccessKey,
         sessionToken: essentialCredentials.sessionToken
@@ -65,18 +62,19 @@ export function AwsIoTDeviceProvider({ children }) {
       // On connect, update status
       device.on('connect', function() {
         setIsDeviceConnected(true);
-        console.log('device.on - connected to AWS IoT.');  
+        // console.log('device.on - connected to AWS IoT.');  
       });
 
       // add event handler for received messages
       device.on('message', function(topic, payload) {
-        var myDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+        // var mDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
         // var newMessage =  `${myDate} - topic '${topic}'#${payload}`;
         var newMessage = {
           topic: `${topic}`,
           msg: `${payload}`
         };
-        // console.log('msgTitle', msgTitle);
+        // console.log('msgTitle', `${topic}`);
+        // console.log('payload', `${payload}`);
         // var newMessage =  `${payload.toString()}`;
         // setMessages(prevMessages => [newMessage, ...prevMessages]);
         setMessages(newMessage);

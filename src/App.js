@@ -14,6 +14,7 @@ import {
   from 'react-router-dom';
 
 import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
+import { SearchProvider } from './contexts/SearchProvider'
 import Navbar from './components/Navbar';
 import Home from './components/Home'; 
 import MQTTDisplay from './components/MQTTDisplay';
@@ -29,6 +30,7 @@ function App(props) {
 
   return (
     <AwsIoTDeviceProvider>
+    <SearchProvider>
     <Router>
     <div className="App">
       <div>
@@ -42,6 +44,7 @@ function App(props) {
       </div>
     </div>
   </Router>
+  </SearchProvider>
   </AwsIoTDeviceProvider>
   );
 }
