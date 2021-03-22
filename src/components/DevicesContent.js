@@ -1,12 +1,10 @@
-import React from 'react'
-// { useState, useEffect, useCallback } 
-
-// import { Auth } from 'aws-amplify';
+import React, { useState, useEffect, useCallback }  from 'react'
+import { Auth } from 'aws-amplify';
 import Device from './Device';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-// import axios from 'axios'
+import axios from 'axios'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useSearch } from '../contexts/SearchProvider'
 
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     margin: 4,
     bottom: 4,
-    right: 12,
+    right: 4,
     marginRight: theme.spacing(12),
     position: 'absolute',
     size: 'large'
@@ -30,74 +28,57 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-
-
 // const handleFabAdd = async event => {
 //   event.preventDefault();
-  // try {
-  //   let orgRole = {
-  //     org : 'ORG#2b962ea2-d89f-4810-86ac-553993086c8b',
-  //     role: 'admin'
-  //   }
-  //   const user = await Auth.currentAuthenticatedUser();
-  //   const result = await Auth.updateUserAttributes(user, {
-  //   'custom:role': JSON.stringify(orgRole)
-  //   });
-  //   console.log(result);
+//   try {
+//     let orgRole = {
+//       org : 'ORG#2b962ea2-d89f-4810-86ac-553993086c8b',
+//       role: 'admin'
+//     }
+//     const user = await Auth.currentAuthenticatedUser();
+//     const result = await Auth.updateUserAttributes(user, {
+//     'custom:role': JSON.stringify(orgRole)
+//     });
+//     console.log(result);
 
-  //   // Auth.signOut();  
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
+//     // Auth.signOut();  
+//   } catch (error) {
+//     console.log(error.message);
+//   }
 // }
 
 export default function DevicesContent() {
 
-  // const [devices, setDevices] = useState([]);
-  // const [orgId, setOrgId] = useState();
+const [fetchedDevices, setFetchedDDevices] = useState([]);
+const [orgId, setOrgId] = useState();
+const rowOfColumns = 3
+let filteredDevices = [];
 
-  // const handleFabAdd = async event => {
-  //   getDevices(orgId);
-  // }
+// const getDevices = useCallback(async (org_id) => {
+//   try {
+//     const params = {
+//       "pk": org_id 
+//     }
+//     const res = await axios.post(`${process.env.REACT_APP_WIFI_DOCK_API_INVOKE_URL}/devices`, params);
+//     setFetchedDDevices(res.data);
 
-  // const getDevices = useCallback(async (org_id) => {
-  //   try {
-  //     const params = {
-  //       "pk": org_id 
-  //     }
-  //     const res = await axios.post(`${process.env.REACT_APP_WIFI_DOCK_API_INVOKE_URL}/devices`, params);
-        
-  //     let deviceList = [], i, deviceRow = [];
+//   } catch (error) {
+    
+//   }
+// }, [])
 
-  //     for (i = 0; i < res.data.length; i++) {
-  //       deviceList.push(res.data[i]);
-  //       if ( deviceList.length % 2 === 0 ) {
-  //         deviceRow.push(deviceList);
-  //         deviceList = [];
-  //       }
-  //     }
-  //     if(deviceList.length > 0) {
-  //       deviceRow.push(deviceList);
-  //       deviceList = [];
-  //     }  
-  //     setDevices(deviceRow);
-  //   } catch (error) {
-      
-  //   }
-  // }, [])
+// async function readAwsAuthAttributes() {
+//   try {
+//     const currentUserInfo = await Auth.currentUserInfo();
+//     const attrRole = currentUserInfo.attributes['custom:role'];
+//     const orgRole = JSON.parse(attrRole);
+//     setOrgId(orgRole.org);
+//     getDevices(orgRole.org);
 
-  // async function readAwsAuthAttributes() {
-  //   try {
-  //     const currentUserInfo = await Auth.currentUserInfo();
-  //     const attrRole = currentUserInfo.attributes['custom:role'];
-  //     const orgRole = JSON.parse(attrRole);
-  //     setOrgId(orgRole.org);
-  //     getDevices(orgRole.org);
-  //     // fetchDevices(orgRole.org);
-  //   } catch (err) {
-  //     console.log('error fetching user info: ', err);
-  //   }
-  // }
+//   } catch (err) {
+//     console.log('error fetching user info: ', err);
+//   }
+// }
   
   // const fetchDevices = async (org) => {
   //   // add call to AWS API Gateway to fetch devices
@@ -121,40 +102,41 @@ export default function DevicesContent() {
   //       deviceList = [];
   //     }
   //     console.log('devices -1: '+JSON.stringify(devices));  
-  //     setDevices(deviceRow);
+  //     setFetchedDDevices(deviceRow);
   //     console.log('devices -2: '+JSON.stringify(devices));
   //   } catch (error) {
       
   //   }
   // }
 
-  // useEffect(() => {
-  //   readAwsAuthAttributes()
-  // }, []) 
+// useEffect(() => {
+//   readAwsAuthAttributes()
+// }, []) 
 
-  const allDevices = [
-    {
-      name: 'A WiFi Dock',
-      thing_name: 'BEWP1-080027E90EDA'
-    },
-    {
-      name: 'B WiFi Dock',
-      thing_name: 'BEWP1-080027ADABBE'
-    },    
-  ]
+const allDevices = [
+  {
+    name: 'A WiFi Dock',
+    thing_name: 'BEWP1-080027E90EDA'
+  },
+  {
+    name: 'B WiFi Dock',
+    thing_name: 'BEWP1-080027ADABBE'
+  },    
+]
+let deviceList = [], i;
+let devices = [];
+const { searchText } = useSearch();
+// filteredDevices = fetchedDevices.filter((device) => {
+//   return device.name.toLowerCase().includes(searchText.toLowerCase()) 
+// })
 
-  let deviceList = [], i;
-  let devices = [];
-  let filteredDevices = [];
-  const { searchText } = useSearch();
-
-  filteredDevices = allDevices.filter((device) => {
-    return device.name.toLowerCase().includes(searchText.toLowerCase()) 
-  })
+filteredDevices = allDevices.filter((device) => {
+  return device.name.toLowerCase().includes(searchText.toLowerCase()) 
+})
 
 for (i = 0; i < filteredDevices.length; i++) {
     deviceList.push(filteredDevices[i]);
-    if ( deviceList.length % 2 === 0 ) {
+    if ( deviceList.length % rowOfColumns === 0 ) {
       devices.push(deviceList);
       deviceList = [];
     }

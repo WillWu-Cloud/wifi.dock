@@ -22,6 +22,7 @@ import DevicesPage from './components/DevicesPage';
 import Footer from './components/Footer';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+ 
 library.add(faEdit);
 
 Amplify.configure(config);

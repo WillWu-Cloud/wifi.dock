@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     size: 'small'
   },
+  searchInput: {
+    marginTop: 8,
+    height: 38
+  }
 }));
 
 const SearchForm = () => {
@@ -26,11 +30,11 @@ const SearchForm = () => {
     <>
     <FormControl fullWidth className={classes.searchForm} variant="outlined">
       <OutlinedInput
+        className={classes.searchInput}
         id="outlined-adornment-search"
         onChange={handleSearchInput}
         startAdornment={<InputAdornment position="start"><SearchIcon /></InputAdornment>}
         labelWidth={0}
-        style={{ height: 38 , width:625}}
       />        
     </FormControl>
     </>  
@@ -40,7 +44,7 @@ const SearchForm = () => {
 
 export default SearchForm
 
-
+// style={{ marginTop:10 ,height: 38 , width:400}}
 {/* <Autocomplete
         freeSolo
         id="free-solo-2-demo"
