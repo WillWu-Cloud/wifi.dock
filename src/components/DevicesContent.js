@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useSearch } from '../contexts/SearchProvider'
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +22,19 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
     bottom: 4,
     right: 4,
-    marginRight: theme.spacing(12),
+    marginRight: theme.spacing(2),
     position: 'absolute',
     size: 'large'
   },
+  searchResult:{
+    position: 'absolute',
+    top: '50%',
+    left: "50%",
+    marginTop: "25px",
+    marginLeft: "-100px",
+    // width: "100px",
+    // height: "400px",
+  }
   
 }));
 
@@ -163,7 +173,12 @@ if(deviceList.length > 0) {
       {
         !devices.length &&
         <>
-          <LinearProgress />
+          {
+            searchText ? 
+              <Typography variant="h6" className={classes.searchResult}>No devices found</Typography> 
+              : <LinearProgress />
+          }
+          
           {/* <h1>Loading</h1> */}
         </> 
       }

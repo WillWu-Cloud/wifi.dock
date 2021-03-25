@@ -188,7 +188,7 @@ export default function Device({ device }) {
       {error && <h1>Error. Try Refreshing.</h1>}
       {
         
-        <Card className={classes.root}>
+        <Card className={classes.root} variant="outlined">
         <CardHeader
           avatar={  
             connected === 'true' ?   
@@ -233,29 +233,27 @@ export default function Device({ device }) {
         <Box paddingX={4}>
         <div className={classes.grid} >
           <Grid container spacing={1}>
-           <Grid item xs={3}>
-           <ListItem>
-            <ListItemText primary={power} secondary="Power" />
-            </ListItem>
+           <Grid item xs={4}>
+            <ListItemText align="center" primary={power} secondary="Power" />
            </Grid>
-           <Grid item xs={3}>
-           <ListItem>
-            <ListItemText primary={energy} secondary="Energy" />
-            </ListItem>
+           <Grid item xs={4}>
+            <ListItemText align="center" primary={energy} secondary="Energy" />
            </Grid>
-           <Grid item xs={3}>
-           <ListItem>
-            <ListItemText primary={current} secondary="Current" />
-            </ListItem>
+           <Grid item xs={4}>
+            <ListItemText align="center" primary={current} secondary="Current" />
            </Grid>
-           <Grid item xs={9} zeroMinWidth >
+           <Grid item xs={12} zeroMinWidth >
             <Divider variant="middle" className={classes.divider} />
            </Grid>
-           <Grid item xs={12}>
-           <ListItem>
-            <ListItemText primary={<><Typography> {start_time? start_time.split(' ')[0] : null} </Typography><Typography> {start_time ?  start_time.split(' ')[1] : null } </Typography></>} secondary="Start Time" />
-            </ListItem>
+           <Grid item xs={4} zeroMinWidth>
+            <ListItemText align="center" primary={
+              <>{start_time ?  start_time.split(' ')[1] : null }
+                <br/><Typography variant='body2' style={{display: 'inline'}}>
+                  {start_time? start_time.split(' ')[0] : null}</Typography>
+              </>}
+             secondary="Start Time" />
            </Grid> 
+           <Grid item xs={6} />
           </Grid>
         </div>
         </Box>

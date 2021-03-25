@@ -34,10 +34,12 @@ export function AwsIoTDeviceProvider({ children }) {
   
       // get credentials and, from them, extract key, secret key, and session token
       // Amplify's auth functionality makes this easy for us...
-      var currentCredentials = await Auth.currentCredentials();
-      var essentialCredentials = Auth.essentialCredentials(currentCredentials);
-  
-      // var currentUserInfo = await Auth.currentUserInfo();
+      try {
+        var currentCredentials = await Auth.currentCredentials();
+        console.log('currentCredentials: '+currentCredentials);
+        var essentialCredentials = Auth.essentialCredentials(currentCredentials);
+
+              // var currentUserInfo = await Auth.currentUserInfo();
       // console.log('Auth.currentUserInfo : '+ currentUserInfo.attributes.email);
       // console.log('Auth.currentUserInfo : '+ currentUserInfo.attributes.name);
 
@@ -47,42 +49,49 @@ export function AwsIoTDeviceProvider({ children }) {
       // console.log(`AWSConfiguration.host: ${AWSConfiguration.host}`)
  
       // Create an MQTT client
-      var device = AWSIoTData.device({
-        region: AWSConfiguration.region,
-        host:AWSConfiguration.host,
-        clientId: clientId,
-        protocol: 'wss',
-        maximumReconnectTimeMs: 8000,
-        debug: false,
-        accessKeyId:  essentialCredentials.accessKeyId,
-        secretKey:    essentialCredentials.secretAccessKey,
-        sessionToken: essentialCredentials.sessionToken
-      });
+      if(essentialCredentials){
+        var device = AWSIoTData.device({
+          region: AWSConfiguration.region,
+          host:AWSConfiguration.host,
+          clientId: clientId,
+          protocol: 'wss',
+          maximumReconnectTimeMs: 8000,
+          debug: false,
+          accessKeyId:  essentialCredentials.accessKeyId,
+          secretKey:    essentialCredentials.secretAccessKey,
+          sessionToken: essentialCredentials.sessionToken
+        });
+    
+        // On connect, update status
+        device.on('connect', function() {
+          setIsDeviceConnected(true);
+          // console.log('device.on - connected to AWS IoT.');  
+        });
   
-      // On connect, update status
-      device.on('connect', function() {
-        setIsDeviceConnected(true);
-        // console.log('device.on - connected to AWS IoT.');  
-      });
+        // add event handler for received messages
+        device.on('message', function(topic, payload) {
+          // var mDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+          // var newMessage =  `${myDate} - topic '${topic}'#${payload}`;
+          var newMessage = {
+            topic: `${topic}`,
+            msg: `${payload}`
+          };
+          // console.log('msgTitle', `${topic}`);
+          // console.log('payload', `${payload}`);
+          // var newMessage =  `${payload.toString()}`;
+          // setMessages(prevMessages => [newMessage, ...prevMessages]);
+          setMessages(newMessage);
+          // console.log('newMessage: '+newMessage);
+        });
+    
+        // update state to track mqtt client
+        setDevice(device);
+        }
 
-      // add event handler for received messages
-      device.on('message', function(topic, payload) {
-        // var mDate = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
-        // var newMessage =  `${myDate} - topic '${topic}'#${payload}`;
-        var newMessage = {
-          topic: `${topic}`,
-          msg: `${payload}`
-        };
-        // console.log('msgTitle', `${topic}`);
-        // console.log('payload', `${payload}`);
-        // var newMessage =  `${payload.toString()}`;
-        // setMessages(prevMessages => [newMessage, ...prevMessages]);
-        setMessages(newMessage);
-        // console.log('newMessage: '+newMessage);
-      });
-  
-      // update state to track mqtt client
-      setDevice(device);
+
+      } catch (error) {
+        console.log('error: '+error);
+      }
     
     }
 

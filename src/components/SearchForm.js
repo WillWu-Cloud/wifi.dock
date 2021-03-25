@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     size: 'small'
   },
   searchInput: {
-    marginTop: 8,
+    // marginTop: 8,
     height: 38
   }
 }));
