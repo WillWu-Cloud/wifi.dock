@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     bottom:0,
     position: "fixed",
     width: "100%",
+    
   },
   footer: {
     padding: theme.spacing(3, 2),
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
+
 }));
 
 export default function StickyFooter() {

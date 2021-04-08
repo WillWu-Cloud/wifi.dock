@@ -8,11 +8,13 @@ import axios from 'axios'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useSearch } from '../contexts/SearchProvider'
 import { Typography } from '@material-ui/core';
+import PageHeader from './PageHeader';
+import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(1)
     },
   },
   extendedIcon: {
@@ -158,8 +160,15 @@ if(deviceList.length > 0) {
 
   const classes = useStyles();
   return (
+    <>
     <section className="container">
       <div className={classes.root}>
+      <PageHeader 
+          title="Bizlink"
+          subTitle=""
+          icon={<DashboardOutlinedIcon fontSize="default"/>}
+          qty={`${filteredDevices.length}`}
+      />
       { 
         devices.length > 0 &&
         devices.map((deviceCols, index) => (
@@ -182,17 +191,9 @@ if(deviceList.length > 0) {
           {/* <h1>Loading</h1> */}
         </> 
       }
-        <Fab 
-          size="small" 
-          color="default" 
-          aria-label="add"
-          className={classes.fab}
-          // onClick={handleFabAdd}
-        >
-          <AddIcon />
-        </Fab>
       </div>
     </section>
+    </>
   )
 }
 

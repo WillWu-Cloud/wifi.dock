@@ -1,6 +1,6 @@
 import './App.css';
 import Amplify from 'aws-amplify';
-import {  withAuthenticator } from "aws-amplify-react";
+import { withAuthenticator } from "aws-amplify-react";
 import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 
 import Bootstrap from "./theme";
@@ -16,36 +16,91 @@ import {
 import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
 import { SearchProvider } from './contexts/SearchProvider'
 import Navbar from './components/Navbar';
+import SideMenu from './components/SideMenu';
 import Home from './components/Home'; 
+import Member from './components/Member'
 import Footer from './components/Footer';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
- 
+
+import { CssBaseline, makeStyles, createMuiTheme, ThemeProvider, Hidden } 
+from '@material-ui/core';
+
 library.add(faEdit);
 Amplify.configure(config);
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#333996",
+      light: "#3c44b126"
+    },
+    secondary: {
+      main: "#f83245",
+      light: "#f8324526"
+    },
+    background: {
+      default: 'white'
+      // default: '#f4f5fd'
+    },
+  },
+  shape:{
+    borderRadius:'12px'
+  },
+  overrides:{
+    MuiAppBar:{
+      root:{
+        transform:'translateZ(0)'
+      }
+    }
+  },
+  props:{
+    // MuiIconButton:{
+    //   disableRipple:true
+    // }
+  }
+})
+
+const useStyles = makeStyles(theme => ({
+  appMain: {
+    paddingLeft: theme.spacing.unit * 0,
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing.unit * 8,
+    },
+    width: '100%'
+  }
+}))
+
 function App(props) {
+  const classes =  useStyles();
 
   return (
-
+    <ThemeProvider theme={theme}>
     <AwsIoTDeviceProvider>
     <SearchProvider>
     <Router>
-      <div className="App">
-        <div>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" render={(props) => (<Home {...props} />)} />
-            {/* <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
-            <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} /> */}
-          </Switch>
-          <Footer />
+      <Hidden smDown>
+        <SideMenu />
+      </Hidden>  
+        <Navbar />
+        <div className={classes.appMain}>
+        <Switch>
+
+          <Route exact path="/" render={(props) => (<Home {...props} />)} />
+          <Route exact path="/members" render={(props) => (<Member {...props} />)} /> 
+          
+          {/* <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
+          <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} /> */}
+
+        </Switch>
         </div>
-      </div>
+        <Footer />
+
+      <CssBaseline />
     </Router>
     </SearchProvider>
     </AwsIoTDeviceProvider>
-
+    </ThemeProvider>
   )
 
 }
