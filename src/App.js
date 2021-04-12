@@ -17,8 +17,8 @@ import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
 import { SearchProvider } from './contexts/SearchProvider'
 import Navbar from './components/Navbar';
 import SideMenu from './components/SideMenu';
-import Home from './components/Home'; 
-import Member from './components/Member'
+import DevicePage from './components/DevicePage'; 
+import MemberPage from './components/MemberPage'
 import Footer from './components/Footer';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -64,8 +64,11 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   appMain: {
     paddingLeft: theme.spacing.unit * 0,
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing.unit * 11,
+    },
     [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing.unit * 8,
+      paddingLeft: theme.spacing.unit * 9,
     },
     width: '100%'
   }
@@ -79,15 +82,15 @@ function App(props) {
     <AwsIoTDeviceProvider>
     <SearchProvider>
     <Router>
-      <Hidden smDown>
+      <Hidden xsDown>
         <SideMenu />
       </Hidden>  
         <Navbar />
         <div className={classes.appMain}>
         <Switch>
 
-          <Route exact path="/" render={(props) => (<Home {...props} />)} />
-          <Route exact path="/members" render={(props) => (<Member {...props} />)} /> 
+          <Route exact path="/" render={(props) => (<DevicePage {...props} />)} />
+          <Route exact path="/members" render={(props) => (<MemberPage {...props} />)} /> 
           
           {/* <Route exact path="/iot" render={(props) => (<MQTTDisplay {...props} />)} />
           <Route exact path="/S3" render={(props) => (<DevicesPage {...props} />)} /> */}

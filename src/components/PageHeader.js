@@ -12,7 +12,6 @@ import SearchForm from '../components/SearchForm';
 import Divider from '@material-ui/core/Divider';
 import AddIcon from '@material-ui/icons/Add'
 
-
 const useStyles = makeStyles(theme => ({
   root: {
 		marginLeft: theme.spacing(2),
@@ -36,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
 	pageAddBtn:{
-		right:'0px'
+		marginRight: theme.spacing(2),
 	},
   label: {
     textTransform: 'none'
@@ -45,7 +44,8 @@ const useStyles = makeStyles(theme => ({
 
 const PageHeader = (props) => {
   const classes = useStyles();
-  const { title, subTitle, icon, qty } = props;
+  const { title, subTitle, icon, qty, unit } = props;
+  const spaceCode = "  ";
   return (
 
       <div className={classes.pageHeader}>
@@ -55,15 +55,15 @@ const PageHeader = (props) => {
         <div className={classes.pageTitle}>
         {/* <ListItemText align="center" primary={title} secondary={ qty > 1 ? `${qty}  devices`: `${qty}  device`} /> */}
           <Typography 
-            display="inline"
             variant="h6"
             component="div">
             {title}</Typography> 
           <Typography 
-            variant="subtitle2"
-            component="div">
-             { qty > 1 ? `${qty}  devices`: `${qty}  device`}
+            style={{ whiteSpace: 'nowrap' }}
+            variant="subtitle2">
+             { qty > 1 ? [`${qty}`,`${unit}s`].join(spaceCode) : [`${qty}`,`${unit}`].join(spaceCode) }
           </Typography> 
+
         </div>
 				<Grid container justify="flex-end">
 				<div className={classes.pageAddBtn}>

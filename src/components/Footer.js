@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 2),
     marginTop: 'auto',
     bottom:0,
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    // backgroundColor:
+    //   theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 
 }));

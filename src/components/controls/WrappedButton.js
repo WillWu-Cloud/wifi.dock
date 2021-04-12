@@ -4,25 +4,31 @@ import {
 } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import SettingsIcon from "@material-ui/icons/Settings";
-import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
-import { withRouter } from "react-router-dom";
-
+import { fade } from '@material-ui/core/styles/colorManipulator';
 const styles = (theme) => ({
   button: {
-    height: 95 // setting height/width is optional
+    height: 85 , // setting height/width is optional
+	borderRadius:'0px',
+	"&:active":{
+		backgroundColor:'white',
+	},
+	"&:focus":{
+		// borderRight : '1px solid',
+		// border : '1px solid',s
+		// backgroundColor:'white',
+		// borderLeft : '2px solid blue',
+		// backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+    }  
   },
   label: {
     // Aligns the content of the button vertically.
     flexDirection: "column",
 		textTransform: 'none'
   },
-  icon: {
-    fontSize: "48px !important",
-    marginBottom: theme.spacing.unit
-  }
+//   icon: {
+//     fontSize: "28px !important",
+//     marginBottom: theme.spacing.unit*0.5
+//   }
 });
 
 const WrappedButton = (props) => {
@@ -32,14 +38,15 @@ const WrappedButton = (props) => {
 		/* Use classes property to inject custom styles */
 		classes={{ root: classes.button, label: classes.label }}
 		// variant="raised"
-		color="primary"
+		// color="primary"
 		onClick={onClick}
 	//   onClick={() => history.push("/contact")}
 		// disableRipple={true}
 	>
 	 {/* <DashboardSharpIcon className={classes.icon} /> */}
 	 {props.children}
-	 	 <Typography variant="caption" style={{marginLeft:'8px', marginRight:'8px'}}>
+	 	 {/* <Typography variant="caption" style={{marginLeft:'8px', marginRight:'8px'}}> */}
+			<Typography variant="caption">
        {text}
      </Typography> 
 

@@ -26,6 +26,9 @@ import { GridOn } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
+    // position: 'fixed',
+    // top: '0',
+    // width: '100%'
   },
   brand: {
     height: 28,
@@ -129,9 +132,6 @@ const Navbar = () =>  {
           </Grid>
           <Grid item sm />
           <Grid item >
-            <IconButton >
-              <AppsIcon/>
-            </IconButton>  
             <IconButton onClick={handleClick} >
               {/* <AccountCircleIcon
                 // className={classes.root}
@@ -186,7 +186,7 @@ const Navbar = () =>  {
                 <Grid item xs zeroMinWidth>
                   <Divider className={classes.divider} />
                 </Grid>
-                <Grid item xs zeroMinWidth>
+                <Grid item xs zeroMinWidth style={{marginTop:'8px'}}>
                   <AmplifySignOut />
                 </Grid>
               </Grid>

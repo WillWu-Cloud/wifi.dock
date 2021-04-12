@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 //   }
 // }
 
-export default function DevicesContent() {
+export default function DevicePage() {
 
 const [fetchedDevices, setFetchedDDevices] = useState([]);
 const [orgId, setOrgId] = useState();
@@ -161,14 +161,14 @@ if(deviceList.length > 0) {
   const classes = useStyles();
   return (
     <>
-    <section className="container">
+    {/* <section className="container"> */}
       <div className={classes.root}>
       <PageHeader 
           title="Bizlink"
           subTitle=""
           icon={<DashboardOutlinedIcon fontSize="default"/>}
           qty={`${filteredDevices.length}`}
-      />
+          unit="device" />
       { 
         devices.length > 0 &&
         devices.map((deviceCols, index) => (
@@ -192,7 +192,7 @@ if(deviceList.length > 0) {
         </> 
       }
       </div>
-    </section>
+    {/* </section> */}
     </>
   )
 }
