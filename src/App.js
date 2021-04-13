@@ -15,7 +15,7 @@ import {
 
 import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
 import { SearchProvider } from './contexts/SearchProvider'
-import Navbar from './components/Navbar';
+import AppToolBar from './components/AppToolBar';
 import SideMenu from './components/SideMenu';
 import DevicePage from './components/DevicePage'; 
 import MemberPage from './components/MemberPage'
@@ -58,17 +58,22 @@ const theme = createMuiTheme({
     // MuiIconButton:{
     //   disableRipple:true
     // }
-  }
+  },
+  AppBar: {
+    backgroundColor: '#fff',
+    position: "fixed" 
+  },
 })
 
 const useStyles = makeStyles(theme => ({
   appMain: {
-    paddingLeft: theme.spacing.unit * 0,
+    paddingTop: theme.spacing(8),
+    paddingLeft: theme.spacing(0),
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 11,
+      paddingLeft: theme.spacing(11),
     },
     [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing.unit * 9,
+      paddingLeft: theme.spacing(9),
     },
     width: '100%'
   }
@@ -85,7 +90,9 @@ function App(props) {
       <Hidden xsDown>
         <SideMenu />
       </Hidden>  
-        <Navbar />
+
+        <AppToolBar />
+   
         <div className={classes.appMain}>
         <Switch>
 

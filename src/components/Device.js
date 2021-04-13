@@ -124,7 +124,6 @@ export default function Device({ device }) {
       if( thing === undefined 
           || thing != device.thing_name ){
         setTimeout(() => {
-          console.log('[Device] setPub');
           setPub({ 
             topic:'$aws/things/'+device.thing_name+'/shadow/get',
             message :'{}'

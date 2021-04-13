@@ -58,7 +58,7 @@ export default function useAwsIot (pub, sub) {
       if(sub != null){
         device.subscribe("$aws/things/"+sub+"/shadow/get/accepted")
         device.subscribe("$aws/things/"+sub+"/shadow/update/accepted")
-        console.log('device.subscribe: '+ sub)
+        // console.log('device.subscribe: '+ sub)
       }
     }
   }, [device, isDeviceConnected, sub])
@@ -67,7 +67,7 @@ export default function useAwsIot (pub, sub) {
     if(isDeviceConnected){
       // device.subscribe("$aws/things/"+device.thingName+"/shadow/get/accepted");
       if(pub != null && !pub.topic.includes('undefined')){
-        console.log('pub.topic: '+ pub.topic)
+        // console.log('pub.topic: '+ pub.topic)
         device.publish(pub.topic, pub.message);
       }
     }

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 import { Link } from "react-router-dom";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
-import SearchForm from '../components/SearchForm'
+import SearchForm from './SearchForm'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -22,13 +22,15 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Typography from "@material-ui/core/Typography";
 import { GridOn } from '@material-ui/icons';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
-    // position: 'fixed',
-    // top: '0',
-    // width: '100%'
+    position: 'fixed',
+    width: '100%',
+    backgroundColor: '#fff',
   },
   brand: {
     height: 28,
@@ -62,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () =>  {
+const AppToolBar = () =>  {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [authName, setAuthName] = React.useState();
@@ -112,15 +114,9 @@ const Navbar = () =>  {
   const popperId = open ? 'account-popper' : undefined;
 
   return (
-    <div className={classes.root}>
-      <Box
-        component={Grid}
-        container
-        boxShadow={3}
-        // spacing={3}
-        // style={{ padding: 10 }}
-      >
-      <Grid container justify="space-between" alignItems="center" spacing={2}>
+    <AppBar id="app-bar" className={classes.root}>
+    <Toolbar>
+      <Grid container justify="space-between" alignItems="center" spacing={1}>
           <Grid item xs={2}>
             <Link className={classes.brand} to="/">
               <img src="logo.png" width="112" height="28" alt="logo" />
@@ -133,13 +129,6 @@ const Navbar = () =>  {
           <Grid item sm />
           <Grid item >
             <IconButton onClick={handleClick} >
-              {/* <AccountCircleIcon
-                // className={classes.root}
-                fontSize='large'
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-              /> */}
               <Avatar aria-label="recipe" 
                       className={classes.avatar}
                       fontSize='large'
@@ -148,61 +137,49 @@ const Navbar = () =>  {
                 {authName ? authName[0].toUpperCase() : ""}
               </Avatar>
             </IconButton>
-              {/* <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}> */}
-
-      <Popover
-        id="mouse-over-popover"
-        className={classes.popover}
-        classes={{
-          paper: classes.paper
-        }}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left"
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-
-
-              <Grid container direction='column' wrap="nowrap" alignItems="center">
-                <Grid item style={{marginTop:'8px'}}>
-                  <Avatar fontSize='large'>{authName ? authName[0].toUpperCase() : ''}</Avatar>
-                </Grid>
-                <Grid item xs zeroMinWidth style={{marginBottom:'8px'}}>
-                  <ListItemText align="center" primary={authName ? authName[0].toUpperCase() + authName.slice(1) : '' } secondary={authEmail ? authEmail : '' } />
-                </Grid>
-                <Grid item xs zeroMinWidth>
-                  <Divider className={classes.divider} />
-                </Grid>
-                <Grid item xs zeroMinWidth style={{marginTop:'8px'}}>
-                  <AmplifySignOut />
-                </Grid>
+          <Popover
+            id="mouse-over-popover"
+            className={classes.popover}
+            classes={{
+              paper: classes.paper
+            }}
+            open={open}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left"
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            <Grid container direction='column' wrap="nowrap" alignItems="center">
+              <Grid item style={{marginTop:'8px'}}>
+                <Avatar fontSize='large'>{authName ? authName[0].toUpperCase() : ''}</Avatar>
               </Grid>
-
-              </Popover>
-
-            {/* </Menu> */}
-          </Grid>
+              <Grid item xs zeroMinWidth style={{marginBottom:'8px'}}>
+                <ListItemText align="center" primary={authName ? authName[0].toUpperCase() + authName.slice(1) : '' } secondary={authEmail ? authEmail : '' } />
+              </Grid>
+              <Grid item xs zeroMinWidth>
+                <Divider className={classes.divider} />
+              </Grid>
+              <Grid item xs zeroMinWidth style={{marginTop:'8px'}}>
+                <AmplifySignOut />
+              </Grid>
+            </Grid>
+          </Popover>
+        </Grid>
       </Grid> 
-      </Box>
-    </div>
+    </Toolbar>
+    </AppBar>
   )
 
 }
 
-export default Navbar
+export default AppToolBar
 
       // // <div className="card is-shady">
       // <div className="card">

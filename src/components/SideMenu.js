@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 		position: 'absolute',
 		top: '70px',
 		left: '0px',
-		width: theme.spacing.unit * 9,
+		width: theme.spacing(9),
 		height: '100%',
     	backgroundColor:
       	theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[500],
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   toggleButtonGroup: {
 		top: '0px',
 		left: '0px',
-		width: theme.spacing.unit * 9,
+		width: theme.spacing(9),
 		height: '100%',
   }
 }))

@@ -36,7 +36,7 @@ export function AwsIoTDeviceProvider({ children }) {
       // Amplify's auth functionality makes this easy for us...
       try {
         var currentCredentials = await Auth.currentCredentials();
-        console.log('currentCredentials: '+currentCredentials);
+        // console.log('currentCredentials: '+currentCredentials);
         var essentialCredentials = Auth.essentialCredentials(currentCredentials);
 
               // var currentUserInfo = await Auth.currentUserInfo();
