@@ -8,7 +8,8 @@ export function useSearch() {
 }
 
 export function SearchProvider({ children }) {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState('');
+  const [navActive, setNavActive] = useState('');
 
   const handleSearchInput = (e) => {
     setSearchText(e.target.value)
@@ -18,6 +19,8 @@ export function SearchProvider({ children }) {
   const value = {
     searchText,
     handleSearchInput,
+    navActive,
+    setNavActive
   }  
 
   return (

@@ -33,7 +33,9 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Badge from "@material-ui/core/Badge";
-import WifiIcon from '@material-ui/icons/Wifi'
+// import WifiIcon from '@material-ui/icons/Wifi';
+import SignalWifi2BarIcon from '@material-ui/icons/SignalWifi2Bar';
+import SignalWifi4BarIcon from '@material-ui/icons/SignalWifi4Bar';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -192,12 +194,12 @@ export default function Device({ device }) {
           avatar={  
             connected === 'true' ?   
             <Avatar aria-label="recipe" className={classes.avatar}>
-              <WifiIcon />
+              <SignalWifi2BarIcon />
             </Avatar>
             :
             <Badge color="secondary" variant="dot"> 
               <Avatar aria-label="recipe" className={classes.avatar}>
-                <WifiIcon />
+                <SignalWifi4BarIcon />
               </Avatar>
             </Badge> 
           }

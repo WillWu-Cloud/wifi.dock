@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1)
-    },
+    }
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DevicePage() {
 
-const [fetchedDevices, setFetchedDDevices] = useState([]);
+// const [fetchedDevices, setFetchedDevices] = useState([]);
 const [orgId, setOrgId] = useState();
 const rowOfColumns = 3
 let filteredDevices = [];

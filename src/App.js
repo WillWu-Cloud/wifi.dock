@@ -62,7 +62,7 @@ const theme = createMuiTheme({
   AppBar: {
     backgroundColor: '#fff',
     position: "fixed" 
-  },
+  }
 })
 
 const useStyles = makeStyles(theme => ({
@@ -75,7 +75,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       paddingLeft: theme.spacing(9),
     },
-    width: '100%'
+    width: '100%',
+    overflow: 'hidden'
   }
 }))
 

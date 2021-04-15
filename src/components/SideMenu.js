@@ -9,6 +9,8 @@ import { withRouter } from "react-router-dom";
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
+import { useSearch } from '../contexts/SearchProvider'
+
 // withStyles & makeStyles
 const useStyles = makeStyles(theme => ({
 	sideMenu: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 	},
   icon: {
     fontSize: "30px !important",
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing(1)
   },
   toggleButtonGroup: {
 		top: '0px',
@@ -44,65 +46,28 @@ const SideMenu = (props) => {
 	const handleChange = (event, nextView) => {
 	  setView(nextView);
 	};
+  const { setNavActive } = useSearch();
 
 	return (
 		<div className={classes.sideMenu}>
-    {/* <Grid container direction='column' wrap="wrap" alignItems="center" >
-      <Grid item>
-			<WrappedButton 
-				text="Dashboard"
-				onClick={() => history.push("/")} >
-				<DashboardSharpIcon className={classes.icon}/>
-			</WrappedButton>	
+      <Grid container direction='column' wrap="wrap" alignItems="center" >
+        <Grid item>
+        <WrappedButton 
+          text="Dashboard"
+          onClick={() => 
+            {history.push("/"); setNavActive("Dashboard") }}>
+          <DashboardSharpIcon className={classes.icon}/>
+        </WrappedButton>	
+        </Grid>
+        <Grid item >
+        <WrappedButton 
+          text="Members"
+          onClick={() => 
+            {history.push("/members"); setNavActive("Members") }}>
+          <SupervisorAccountRoundedIcon className={classes.icon}/>
+        </WrappedButton>
+        </Grid>	
       </Grid>
-      <Grid item >
-			<WrappedButton 
-				text="Members"
-				onClick={() => history.push("/members")} >
-				<SupervisorAccountRoundedIcon className={classes.icon}/>
-			</WrappedButton>
-      </Grid>	
-    </Grid> */}
-
-	<ToggleButtonGroup 
-    className={classes.toggleButtonGroup} 
-    orientation="vertical" 
-    value={view} 
-    exclusive 
-    onChange={handleChange}>
-      <ToggleButton value="Dashboard" aria-label="Dashboard">
-	  	  <WrappedButton 
-			  	text="Dashboard"
-			  	onClick={() => history.push("/")} >
-			  	<DashboardSharpIcon className={classes.icon}/>
-		    </WrappedButton>
-      </ToggleButton>
-      <ToggleButton value="members" aria-label="members">
-			  <WrappedButton 
-			  	text="Members"
-			  	onClick={() => history.push("/members")} >
-			  	<SupervisorAccountRoundedIcon className={classes.icon}/>
-			  </WrappedButton>
-      </ToggleButton>
-    </ToggleButtonGroup>
-
-    {/* <List component="nav" style={{whiteSpace: "nowrap"}}>
-      <ListItem style={{whiteSpace: "nowrap"}} >
-      <WrappedButton 
-				text="Dashboard"
-				onClick={() => history.push("/")} >
-				<DashboardSharpIcon className={classes.icon}/>
-			</WrappedButton>	   
-      </ListItem>
-      <ListItem style={{whiteSpace: "nowrap"}}>
-      <WrappedButton 
-				text="Members"
-				onClick={() => history.push("/members")} >
-				<SupervisorAccountRoundedIcon className={classes.icon}/>
-			</WrappedButton>
-      </ListItem>
-    </List> */}
-
 		</div>
 	)
 }
