@@ -13,7 +13,7 @@ const styles = (theme) => ({
     height: 85 , // setting height/width is optional
 	  borderRadius:'0px',
 	  background:'transparent',
-    maxWidth: theme.spacing(8),
+    maxWidth: theme.spacing(9),
 	//   "&.active": {
 	// 	background:'black',
 	//   },
@@ -44,7 +44,8 @@ const WrappedButton = (props) => {
 	<Button
 		/* Use classes property to inject custom styles */
 		classes={{ root: classes.button, label: classes.label }}
-    style={{background: navActive === text ? 'white' : 'transparent'}}
+    style={{background: navActive === text ? 'white' : 'transparent',
+    borderLeft: navActive === text ? '4px DeepSkyBlue solid' : '' }}
 		// variant="raised"
 		// color="primary"
 		onClick={onClick}
@@ -54,7 +55,7 @@ const WrappedButton = (props) => {
 	 {/* <DashboardSharpIcon className={classes.icon} /> */}
 	{props.children}
 	 	 {/* <Typography variant="caption" style={{marginLeft:'8px', marginRight:'8px'}}> */}
-		<Box fontSize={12} m={1}>
+		<Box fontSize={12}>
        {text}
 		</Box>
 	</Button> )

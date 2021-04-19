@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     // height: '184px',
     // marginLeft: '20px',
     // marginRight: '20px',
-
   },
   paper: {
     border: '1px solid',
@@ -72,7 +71,6 @@ const AppToolBar = () =>  {
 
   useEffect(() => {
     loadAwsAuthAttributes();
-
   }, []) 
 
   async function loadAwsAuthAttributes() {
@@ -95,11 +93,9 @@ const AppToolBar = () =>  {
   const handlePopoverOpen = event => {
     setAnchorEl(event.currentTarget);
   };
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
   const classes = useStyles();
   const handleLogOut = async event => {
     event.preventDefault();
@@ -118,9 +114,7 @@ const AppToolBar = () =>  {
     <Toolbar>
       <Grid container justify="space-between" alignItems="center" spacing={1}>
           <Grid item xs={2}>
-            <Link className={classes.brand} to="/">
               <img src="logo.png" width="112" height="28" alt="logo" />
-            </Link>
           </Grid>
           <Grid item sm />
           <Grid item xs={5}>

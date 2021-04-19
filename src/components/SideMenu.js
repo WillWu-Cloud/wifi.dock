@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }  from 'react'
 import { makeStyles, Typography, Grid, List, ListItem, Box} from "@material-ui/core"
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
 import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
 	sideMenu: {
 		display: 'flex',
 		flexDirectin: 'column',
-		position: 'absolute',
+		// position: 'absolute',
+    position: 'fixed',
 		top: '70px',
 		left: '0px',
 		width: theme.spacing(9),
@@ -29,12 +30,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px !important",
     marginBottom: theme.spacing(1)
   },
-  toggleButtonGroup: {
-		top: '0px',
-		left: '0px',
-		width: theme.spacing(9),
-		height: '100%',
-  }
 }))
 
 const SideMenu = (props) => {
@@ -48,9 +43,13 @@ const SideMenu = (props) => {
 	};
   const { setNavActive } = useSearch();
 
+  useEffect(() => {
+    setNavActive("Dashboard");
+  },[setNavActive])
+
 	return (
 		<div className={classes.sideMenu}>
-      <Grid container direction='column' wrap="wrap" alignItems="center" >
+      <Grid container direction='column' wrap="wrap-reverse" alignItems="center" >
         <Grid item>
         <WrappedButton 
           text="Dashboard"

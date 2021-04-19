@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1)
-    }
+    },
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -133,7 +133,7 @@ const allDevices = [
   {
     name: 'B WiFi Dock',
     thing_name: 'BEWP1-080027ADABBE'
-  },    
+  },
 ]
 let deviceList = [], i;
 let devices = [];

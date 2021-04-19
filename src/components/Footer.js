@@ -7,14 +7,16 @@ import Link from '@material-ui/core/Link';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://bizlinktech.com/">
-        Bizlink
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <>
+    </>
+    // <Typography variant="body2" color="textSecondary">
+    //   {'Copyright © '}
+    //   <Link color="inherit" href="https://bizlinktech.com/">
+    //     Bizlink
+    //   </Link>{' '}
+    //   {new Date().getFullYear()}
+    //   {'.'}
+    // </Typography>
   );
 }
 

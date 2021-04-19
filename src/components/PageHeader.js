@@ -14,8 +14,11 @@ import AddIcon from '@material-ui/icons/Add'
 
 const useStyles = makeStyles(theme => ({
   root: {
-		marginLeft: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper
+
+    backgroundColor: theme.palette.background.paper,
+    // flexGrow: 0,
+    position: 'fixed',
+    // width: '100%',
   },
   pageHeader:{
 		alignItems: 'center',
@@ -35,7 +38,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
 	pageAddBtn:{
-		marginRight: theme.spacing(2),
+		marginRight: theme.spacing(12),
+    marginBottom:theme.spacing(3)
 	},
   label: {
     textTransform: 'none'
