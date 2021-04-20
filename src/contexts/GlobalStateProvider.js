@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 
-const SearchContext = React.createContext()
+const GlobalStateContext = React.createContext()
 
 // custom hook
-export function useSearch() {
-  return useContext(SearchContext)
+export function useGlobalState() {
+  return useContext(GlobalStateContext)
 }
 
-export function SearchProvider({ children }) {
+export function GlobalStateProvider({ children }) {
   const [searchText, setSearchText] = useState('');
   const [navActive, setNavActive] = useState('');
 
@@ -24,8 +24,8 @@ export function SearchProvider({ children }) {
   }  
 
   return (
-    <SearchContext.Provider value={value}>
+    <GlobalStateContext.Provider value={value}>
         {children}
-    </SearchContext.Provider>
+    </GlobalStateContext.Provider>
   )
 }  

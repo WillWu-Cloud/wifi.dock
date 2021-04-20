@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios'
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useSearch } from '../contexts/SearchProvider'
+import { useGlobalState } from '../contexts/GlobalStateProvider'
 import { Typography } from '@material-ui/core';
 import PageHeader from './PageHeader';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
@@ -137,7 +137,7 @@ const allDevices = [
 ]
 let deviceList = [], i;
 let devices = [];
-const { searchText } = useSearch();
+const { searchText } = useGlobalState();
 // filteredDevices = fetchedDevices.filter((device) => {
 //   return device.name.toLowerCase().includes(searchText.toLowerCase()) 
 // })

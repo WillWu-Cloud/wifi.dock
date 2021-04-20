@@ -14,13 +14,15 @@ import AddIcon from '@material-ui/icons/Add'
 
 const useStyles = makeStyles(theme => ({
   root: {
-
     backgroundColor: theme.palette.background.paper,
     // flexGrow: 0,
     position: 'fixed',
     // width: '100%',
   },
   pageHeader:{
+    backgroundColor: theme.palette.background.paper,
+    // backgroundColor:
+    // theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
 		alignItems: 'center',
     padding:theme.spacing(0.5),
     display:'flex',

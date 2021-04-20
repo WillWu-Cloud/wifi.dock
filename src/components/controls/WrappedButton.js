@@ -6,7 +6,7 @@ import {
 import { Button } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { useSearch } from '../../contexts/SearchProvider'
+import { useGlobalState } from '../../contexts/GlobalStateProvider'
 
 const styles = (theme) => ({
   button: {
@@ -38,7 +38,7 @@ const styles = (theme) => ({
 
 const WrappedButton = (props) => {
 	const { classes, text, onClick } = props;
-  const { navActive } = useSearch();
+  const { navActive } = useGlobalState();
 
 	return (
 	<Button

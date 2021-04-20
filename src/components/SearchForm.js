@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { useSearch } from '../contexts/SearchProvider'
+import { useGlobalState } from '../contexts/GlobalStateProvider'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = () => {
-  const { handleSearchInput } = useSearch();
+  const { handleSearchInput } = useGlobalState();
   const classes = useStyles();
 
   return (

@@ -14,7 +14,7 @@ import {
   from 'react-router-dom';
 
 import { AwsIoTDeviceProvider } from './contexts/AwsIoTDeviceProvider'
-import { SearchProvider } from './contexts/SearchProvider'
+import { GlobalStateProvider } from './contexts/GlobalStateProvider'
 import AppToolBar from './components/AppToolBar';
 import SideMenu from './components/SideMenu';
 import DevicePage from './components/DevicePage'; 
@@ -86,7 +86,7 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
     <AwsIoTDeviceProvider>
-    <SearchProvider>
+    <GlobalStateProvider>
     <Router>
       <Hidden xsDown>
         <SideMenu />
@@ -109,7 +109,7 @@ function App(props) {
 
       <CssBaseline />
     </Router>
-    </SearchProvider>
+    </GlobalStateProvider>
     </AwsIoTDeviceProvider>
     </ThemeProvider>
   )

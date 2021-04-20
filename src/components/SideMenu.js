@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-import { useSearch } from '../contexts/SearchProvider'
+import { useGlobalState } from '../contexts/GlobalStateProvider'
 
 // withStyles & makeStyles
 const useStyles = makeStyles(theme => ({
@@ -41,7 +41,7 @@ const SideMenu = (props) => {
 	const handleChange = (event, nextView) => {
 	  setView(nextView);
 	};
-  const { setNavActive } = useSearch();
+  const { setNavActive } = useGlobalState();
 
   useEffect(() => {
     setNavActive("Dashboard");
