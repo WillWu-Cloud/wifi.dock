@@ -185,11 +185,12 @@ export default function Device({ device }) {
   const classes = useStyles();
   return (
     <div className="column is-4">
-      {loading && <LinearProgress />}
+
       {error && <h1>Error. Try Refreshing.</h1>}
       {
         
         <Card className={classes.root} variant="outlined">
+        {loading && <LinearProgress />}
         <CardHeader
           avatar={  
             connected === 'true' ?   

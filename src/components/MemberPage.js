@@ -9,6 +9,9 @@ import {
   Toolbar, 
   InputAdornment } from '@material-ui/core';
 import useTable from "./useTable";
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CloseIcon from '@material-ui/icons/Close'
+import Controls from "./controls/Controls"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   pageContent:{
-    margin: theme.spacing(5),
+    margin: theme.spacing(3),
     marginTop: theme.spacing(1),
     padding: theme.spacing(3),
     paddingTop: theme.spacing(0.5),
@@ -25,11 +28,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const headCells = [
-  {id: 'Name', label: 'Member name'},
+  {id: 'name', label: 'Name'},
   {id: 'email', label: 'Email Address'},
+  {id: 'department', label: 'Departement'},
   {id: 'role', label: 'Role'},
   {id: 'actions', label: 'Actions', disableSorting: true}
 ]
+
+const filteredMembers = [{
+  name: "Will",
+  email: "will_wu@bizlinktech.com"
+
+}]
 
 export default function MemberPage() {
 
@@ -50,12 +60,34 @@ export default function MemberPage() {
       <PageHeader 
         title="Bizlink"
         subTitle=""
-        qty={`${filteredMembers.length}`}
+        // qty={`${filteredMembers.length}`}
+        qty="1"
         unit="member"/>   
       <Paper className={classes.pageContent}>
         <TblContainer>
           <TblHead />
-          
+          <TableBody>
+            {
+                  <TableRow>
+                    <TableCell>Will Wu</TableCell>
+                    <TableCell>will_wu@bizlinktech.com</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>
+                      <Controls.ActionButton
+                        color="primary"
+                         >
+                          <EditOutlinedIcon fontSize="small" />
+                      </Controls.ActionButton>
+                      <Controls.ActionButton
+                        color="secondary"
+                      >
+                        <CloseIcon fontSize="small" />
+                      </Controls.ActionButton>
+                    </TableCell>
+                  </TableRow>
+            }
+          </TableBody>      
         </TblContainer>
         <TblPagination />     
       </Paper>      

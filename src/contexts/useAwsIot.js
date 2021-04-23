@@ -12,6 +12,7 @@ const ACTIONS = {
 const INIT_STATE = {
   isAwsConnected: false,
   msgs: null,
+  loading: false,
   error: false
 }
 
