@@ -1,7 +1,8 @@
 import React, { useEffect }  from 'react'
 import { makeStyles, Typography, Grid, List, ListItem, Box} from "@material-ui/core"
-import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
-import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import PeopleIcon from '@material-ui/icons/People';
+import TodayIcon from '@material-ui/icons/Today';
 
 import WrappedButton from '../components/controls/WrappedButton'
 import { withRouter } from "react-router-dom";
@@ -55,7 +56,7 @@ const SideMenu = (props) => {
           text="Dashboard"
           onClick={() => 
             {history.push("/"); setNavActive("Dashboard") }}>
-          <DashboardSharpIcon className={classes.icon}/>
+          <DashboardIcon className={classes.icon}/>
         </WrappedButton>	
         </Grid>
         <Grid item >
@@ -63,7 +64,15 @@ const SideMenu = (props) => {
           text="Members"
           onClick={() => 
             {history.push("/members"); setNavActive("Members") }}>
-          <SupervisorAccountRoundedIcon className={classes.icon}/>
+          <PeopleIcon className={classes.icon}/>
+        </WrappedButton>
+        </Grid>	
+        <Grid item >
+        <WrappedButton 
+          text="Schedule"
+          onClick={() => 
+            {history.push("/schedule"); setNavActive("Schedule") }}>
+          <TodayIcon className={classes.icon}/>
         </WrappedButton>
         </Grid>	
       </Grid>

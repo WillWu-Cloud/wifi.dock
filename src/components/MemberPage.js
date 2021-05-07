@@ -68,24 +68,24 @@ export default function MemberPage() {
           <TblHead />
           <TableBody>
             {
-                  <TableRow>
-                    <TableCell>Will Wu</TableCell>
-                    <TableCell>will_wu@bizlinktech.com</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell>
-                      <Controls.ActionButton
-                        color="primary"
-                         >
-                          <EditOutlinedIcon fontSize="small" />
-                      </Controls.ActionButton>
-                      <Controls.ActionButton
-                        color="secondary"
-                      >
-                        <CloseIcon fontSize="small" />
-                      </Controls.ActionButton>
-                    </TableCell>
-                  </TableRow>
+              <TableRow>
+                <TableCell>Will Wu</TableCell>
+                <TableCell>will_wu@bizlinktech.com</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                  <Controls.ActionButton
+                    color="primary"
+                     >
+                      <EditOutlinedIcon fontSize="small" />
+                  </Controls.ActionButton>
+                  <Controls.ActionButton
+                    color="secondary"
+                  >
+                    <CloseIcon fontSize="small" />
+                  </Controls.ActionButton>
+                </TableCell>
+              </TableRow>
             }
           </TableBody>      
         </TblContainer>
