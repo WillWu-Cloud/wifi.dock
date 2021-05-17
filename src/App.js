@@ -113,8 +113,8 @@ function App(props) {
         <div className={classes.appMain}>
         <Switch>
           <Route exact path="/" render={(props) => (<DevicePage {...props} />)} />
-          <Route exact path="/members" render={(props) => (<MemberPage {...props} />)} /> 
           <Route exact path="/schedule" render={(props) => (<SchedulePage {...props} />)} /> 
+          <Route exact path="/members" render={(props) => (<MemberPage {...props} />)} /> 
         </Switch>
         </div>
         <Footer />

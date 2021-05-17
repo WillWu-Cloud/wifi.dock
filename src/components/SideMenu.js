@@ -60,19 +60,19 @@ const SideMenu = (props) => {
         </WrappedButton>	
         </Grid>
         <Grid item >
-        <WrappedButton 
-          text="Members"
-          onClick={() => 
-            {history.push("/members"); setNavActive("Members") }}>
-          <PeopleIcon className={classes.icon}/>
-        </WrappedButton>
-        </Grid>	
         <Grid item >
         <WrappedButton 
           text="Schedule"
           onClick={() => 
             {history.push("/schedule"); setNavActive("Schedule") }}>
           <TodayIcon className={classes.icon}/>
+        </WrappedButton>
+        </Grid>	          
+        <WrappedButton 
+          text="Members"
+          onClick={() => 
+            {history.push("/members"); setNavActive("Members") }}>
+          <PeopleIcon className={classes.icon}/>
         </WrappedButton>
         </Grid>	
       </Grid>
